@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+
+# Optional: override classpath locations for ONNX files (see repo root models/README.md)
+face:
+  model:
+    detect: models/face_detection_yunet_2023mar.onnx
+    recognize: models/face_recognition_sface_2021dec.onnx
+

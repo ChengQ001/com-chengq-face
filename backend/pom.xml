@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- Spring Boot 版本与默认插件/依赖管理（JDK、测试、打包等约定） -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.4.4</version>
+    <relativePath/>
+  </parent>
+
+  <!-- 当前工程坐标：人脸检测/比对 REST 服务 -->
+  <groupId>com.chengq</groupId>
+  <artifactId>face-backend</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>face-backend</name>
+  <description>Face detection &amp; verification demo backend (YuNet + SFace via ONNX Runtime)</description>
+
+  <!-- 编译与第三方 BOM 版本；djl.version 需与 onnxruntime-engine 一致 -->
+  <properties>
+    <java.version>17</java.version>
+    <djl.version>0.31.1</djl.version>
+  </properties>
+
+  <!-- DJL 子模块版本对齐：由 BOM 统一管理，避免 api / engine 混用不同小版本 -->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>ai.djl</groupId>
+        <artifactId>bom</artifactId>
+        <version>${djl.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <!-- ========== Spring：Web、校验、运维端点 ========== -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
+    <!-- ========== 推理栈：DJL API + ONNX Runtime（无 OpenCV native）========== -->
+    <!-- NDArray/Engine 抽象；与 onnxruntime-engine 配套使用 -->
+    <dependency>
+      <groupId>ai.djl</groupId>
+      <artifactId>api</artifactId>
+      <version>${djl.version}</version>
+    </dependency>
+    <!-- 原生/绑定层；版本需与 DJL onnxruntime-engine 支持的 ORT 线兼容 -->
+    <dependency>
+      <groupId>com.microsoft.onnxruntime</groupId>
+      <artifactId>onnxruntime</artifactId>
+      <version>1.19.2</version>
+    </dependency>
+    <!-- DJL 的 ORT 引擎适配（runtime：仅运行期需要） -->
+    <dependency>
+      <groupId>ai.djl.onnxruntime</groupId>
+      <artifactId>onnxruntime-engine</artifactId>
+      <version>${djl.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- ========== 仅编译期：可选，当前工程以 Java record 为主，可后续接 Lombok ========== -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <!-- ========== 测试 ========== -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <!-- fat jar：spring-boot-maven-plugin 已由 parent 管理版本 -->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>

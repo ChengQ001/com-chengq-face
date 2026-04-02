@@ -1,0 +1,70 @@
+# ========== Maven / Java ==========
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*.log
+replay_pid*.log
+
+# ========== Node / 前端 ==========
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+dist-ssr/
+*.local
+*.tsbuildinfo
+
+# ========== 日志与临时 ==========
+logs/
+*.log
+tmp/
+temp/
+*.tmp
+*.cache
+
+# ========== IDE / 编辑器 ==========
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+
+# ========== 系统文件 ==========
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ========== 环境变量与密钥（勿提交）==========
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ========== 测试与覆盖率 ==========
+coverage/
+.nyc_output/
+
+# ========== 可选：体积很大的 ONNX 权重 ==========
+# 若希望仓库只保留文档、不提交模型，取消下面两行注释：
+# *.onnx
+# !**/README.md
