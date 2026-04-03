@@ -47,6 +47,11 @@ mvn -DskipTests spring-boot:run
 | `POST` | `/api/face/verify` | 双图 1:1 同人判定 |
 | `POST` | `/api/face/verify/calibrate` | 用两对样本估算建议阈值 |
 
+### Swagger / OpenAPI
+
+- Swagger UI：`http://localhost:8080/swagger-ui/index.html`
+- OpenAPI JSON：`http://localhost:8080/v3/api-docs`
+
 ### `POST /api/face/detect`
 
 - **file**（必填）：图片文件
